@@ -51,6 +51,16 @@
             Easy Mock 会自动基于此接口创建 Mock 接口. <router-link to="/docs#swagger"><Icon type="help-circled"></Icon></router-link>
             </p>
           </Form-item>
+          <Form-item label="项目地址">
+            <template slot="label">
+              API 服务地址
+              <span>(可选)</span>
+            </template>
+            <i-input v-model="form.projectAddress" placeholder="http://example.com"></i-input>
+            <p class="em-new__form-description">
+            我们可以在此处填写项目地址, Easy Mock 可以提供 mock 数据和真实数据之间的切换, API 测试完成即可无缝投入使用.
+            </p>
+          </Form-item>
           <Form-item label="邀请成员" class="em-new__form-hr">
             <template slot="label">
               邀请成员 协同编辑
@@ -112,6 +122,7 @@ export default {
         projectUrl: '',
         projectDesc: '',
         projectSwagger: '',
+        projectAddress: '',
         projectMembers: []
       }
     }
@@ -134,6 +145,7 @@ export default {
       this.form.projectName = proj.name
       this.form.projectDesc = proj.description
       this.form.projectSwagger = proj.swagger_url
+      this.form.projectAddress = proj.address
       this.projectUrl = proj.url.slice(1) // remove /
       this.$nextTick(() => {
         this.remoteLoading = false
@@ -184,6 +196,7 @@ export default {
         name: this.form.projectName,
         group: this.form.groupId,
         swagger_url: this.form.projectSwagger,
+        address: this.form.projectAddress,
         description: this.form.projectDesc,
         url: this.convertUrl(this.projectUrl),
         members: this.form.projectMembers
