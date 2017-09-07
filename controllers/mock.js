@@ -352,7 +352,12 @@ exports.getMock = function * () {
         url: url.origin + pathname,
         params: queryString,
         data: body,
-        headers: {'content-type': header['content-type'], 'x-authorization': header['x-authorization']},
+        headers: {
+          'content-type': header['content-type'] || 'application/json',
+          'x-authorization': header['x-authorization'] || '',
+          'client-key': header['client-key'] || '',
+          'accept': header['accept'] || 'application/json'
+        },
         timeout: 10000
       }).then(res => res.data)
     } catch (error) {
